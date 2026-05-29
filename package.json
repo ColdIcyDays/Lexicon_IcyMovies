@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+"css:build": "npx @tailwindcss/cli -i ./IcyMovies/wwwroot/css/site.css -o ./IcyMovies/wwwroot/css/output.css --minify"
+
   },
   "keywords": [],
   "author": "",
@@ -12,7 +14,7 @@
   "devEngines": {
     "packageManager": {
       "name": "npm",
-      "version": "11.11.0",
+      "version": "11.13.0",
       "onFail": "download"
     }
   },

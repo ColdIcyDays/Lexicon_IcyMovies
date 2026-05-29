@@ -5,29 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - IcyMovies</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link href="~/css/output.css" rel="stylesheet" asp-append-version="true">
+    @*<link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>*@
+    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true">
     <link rel="stylesheet" href="~/IcyMovies.styles.css" asp-append-version="true"/>
 </head>
 <body>
 <header>
-    <nav class=" navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">IcyMovies</a>
-            <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-            </ul>
-            @*<button class="min-w-[64px] min-h-[64px]">
-                <p>SOme text</p>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-               
-            </div>*@
+    <nav class="mb-3 flex flex-row">
+        <div class="h-64 flex flex-row grow border-b-1 bg-cyan-500">
+            <div class="">
+                <p>Hello nav bar</p>
+            </div>
+            
+            <div class="">
+                <p>Hello nav bar</p>
+            </div>
+            
+        </div>
+
+        @* User login status *@
+        <div class="border-b-4 border-black">
+            <p>Im the user</p>
         </div>
     </nav>
 </header>
