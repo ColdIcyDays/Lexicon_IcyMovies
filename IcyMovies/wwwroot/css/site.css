@@ -1,6 +1,12 @@
-@import "tailwindcss";
+@layer theme, base, components, utilities;
 
-@tailwind utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@source "../../Controllers/**/*";
+@source "../../Views/**/*";
+@source "../../wwwroot/**/*";
 
 html {
   font-size: 14px;
@@ -33,3 +39,18 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.navbar-element{}
+
+@layer components {
+  .navbar-element {
+    @apply hover:bg-cyan-700;
+    @apply transition-colors;
+    @apply duration-200;
+    @apply h-full;
+    @apply w-full;
+    @apply last:border-r-0;
+    @apply border-r-2;
+  }
+}
+

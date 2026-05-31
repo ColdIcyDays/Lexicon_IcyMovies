@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="npx tailwindcss -i /home/erikl/Github-Projects/Lexicon_IcyMovies/IcyMovies/wwwroot/css/site.css -o /home/erikl/Github-Projects/Lexicon_IcyMovies/IcyMovies/wwwroot/css/output.css" />
+  </Target>
+  
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>

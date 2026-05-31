@@ -11,21 +11,29 @@
 </head>
 <body>
 <header>
-    <nav class="mb-3 flex flex-row">
-        <div class="h-64 flex flex-row grow border-b-1 bg-cyan-500">
-            <div class="">
-                <p>Hello nav bar</p>
+    <nav class="mb-3 h-16 flex flex-row border-b-1">
+        <div class="flex flex-row grow border-r-2">
+            <div class="navbar-element flex">
+                <a class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Index"><span class="m-auto">Home</span></a>
             </div>
-            
-            <div class="">
-                <p>Hello nav bar</p>
+            <div class="navbar-element flex">
+                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Something</span></a>
+            </div>
+            <div class="navbar-element flex">
+                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Huh?</span></a>
             </div>
             
         </div>
 
         @* User login status *@
-        <div class="border-b-4 border-black">
-            <p>Im the user</p>
+        <div class="flex flex-row grow">
+            <div class="navbar-element flex">
+                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Edit database</span></a>
+            </div>
+            
+            <div class="navbar-element flex">
+                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">User</span></a>
+            </div>
         </div>
     </nav>
 </header>
