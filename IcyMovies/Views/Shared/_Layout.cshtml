@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-min">
+<div>
+    
+</div>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,9 +12,9 @@
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true">
     <link rel="stylesheet" href="~/IcyMovies.styles.css" asp-append-version="true"/>
 </head>
-<body>
+<body class="flex flex-col">
 <header>
-    <nav class="mb-3 h-16 flex flex-row border-b-1">
+    <nav class="h-16 flex flex-row border-b">
         <div class="flex flex-row grow border-r-2">
             <div class="navbar-element flex">
                 <a class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Index"><span class="m-auto">Home</span></a>
@@ -22,7 +25,7 @@
             <div class="navbar-element flex">
                 <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Huh?</span></a>
             </div>
-            
+
         </div>
 
         @* User login status *@
@@ -30,20 +33,20 @@
             <div class="navbar-element flex">
                 <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Edit database</span></a>
             </div>
-            
+
             <div class="navbar-element flex">
                 <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">User</span></a>
             </div>
         </div>
     </nav>
 </header>
-<div class="w-full">
-    <main role="main" class="pb-3 w-full">
+<div class="w-full grow">
+    <main role="main" class="w-full h-full">
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer class="border-t border-dotted footer text-muted mt-auto p-8">
     <div class="container">
         &copy; 2026 - IcyMovies - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>

@@ -11,7 +11,112 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+       
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<form asp-action="Edit" class="px-64 py-8 w-full">
+    <div class="w-full rounded-lg ring-2 ring-black/50 min-h-32">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="grid grid-cols-2 gap-8 h-full p-8">
+            <div class="w-full h-full flex flex-col gap-4">
+                @* 160 / 230*@
+                <div class="mx-auto">
+                    <img id="posterImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/250px-Question_mark_%28black%29.svg.png" class="h-[230px] max-w-[160px] max-h-[230px]"/>
+                </div>
+                
+                <div class="db-inputfield-container">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="ring-2 p-1"/>
+                    <span asp-validation-for="Title" class="text-red-600 inline-block"></span>
+                </div>
+                
+                <div class="db-inputfield-container">
+                    <label asp-for="PosterURL" class="control-label"></label>
+                    <input id="posterURL" asp-for="PosterURL" class="ring-2 p-1"/>
+                    <span asp-validation-for="PosterURL" class="text-red-600 inline-block"></span>
+                </div>
+                
+                <div class="db-inputfield-container">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="resize-none h-32 ring-2 p-1"></textarea>
+                    <span asp-validation-for="Description" class="text-red-600 inline-block"></span>
+                </div>
+            </div>
+
+            <div class="w-full h-full flex flex-col gap-4">
+                <div class="db-inputfield-container">
+                    <label asp-for="Genre" class="control-label"></label>
+                    <input asp-for="Genre" class="ring-2 p-1" />
+                    <span asp-validation-for="Genre" class="text-red-600 inline-block"></span>
+                </div>
+                <div class="db-inputfield-container">
+                    <label asp-for="ReleaseDate" class="control-label"></label>
+                    <input asp-for="ReleaseDate" class="ring-2 p-1" />
+                    <span asp-validation-for="ReleaseDate" class="text-red-600 inline-block"></span>
+                </div>
+                <div class="db-inputfield-container">
+                    <label asp-for="AgeRating" class="control-label"></label>
+                    <input asp-for="AgeRating" class="ring-2 p-1" />
+                    <span asp-validation-for="AgeRating" class="text-red-600 inline-block"></span>
+                </div>
+                <div class="db-inputfield-container">
+                    <label asp-for="DurationInMinutes" class="control-label"></label>
+                    <input asp-for="DurationInMinutes" class="ring-2 p-1" />
+                    <span asp-validation-for="DurationInMinutes" class="text-red-600 inline-block"></span>
+                </div>
+                
+                <div class="form-group mt-auto">
+                    <input type="submit"  value="Submit" class="bg-blue-700 text-white p-4 rounded-md w-full" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+    let posterURL = document.getElementById("posterURL");
+    let posterIMG = document.getElementById("posterImage");
+    
+    if (posterURL == null) {
+        console.log("URL IS NULL");
+    }
+
+    var url = posterURL.value;
+    var image = new Image();
+    image.src = url;
+    image.onload = function (){
+        posterIMG.src = url;
+    }
+    image.onerror = function (){
+        posterIMG.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/250px-Question_mark_%28black%29.svg.png"
+    }
+    
+    
+    posterURL?.addEventListener('input', function(e) {
+        var url = this.value;
+        var image = new Image();
+        image.src = url;
+        image.onload = function (){
+            posterIMG.src = url;
+        }
+        image.onerror = function (){
+            posterIMG.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/250px-Question_mark_%28black%29.svg.png"
+        }
+    })
+</script>
+
+</form>
+
+@*
+ <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -53,13 +158,6 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+*@
