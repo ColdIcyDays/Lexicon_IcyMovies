@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en" class="h-min">
 <div>
     
@@ -14,24 +15,33 @@
 </head>
 <body class="flex flex-col">
 <header>
-    <nav class="h-16 flex flex-row border-b">
-        <div class="flex flex-row grow border-r-2">
-            <div class="navbar-element flex">
-                <a class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Index"><span class="m-auto">Home</span></a>
+    <nav class="h-16 flex flex-row border-black bg-white">
+        <div class="pr-12 pl-4">
+            <div for-page="/" class="navbar-element flex text-4xl">
+                <a class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Index">
+                    <div class="w-max h-max m-auto flex flex-row">
+                        <h2>Icy</h2>
+                        <h2 class="text-clr-10-1 pl-2">Movies</h2>
+                    </div>
+                </a>
             </div>
-            <div class="navbar-element flex">
-                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Something</span></a>
-            </div>
-            <div class="navbar-element flex">
-                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Huh?</span></a>
-            </div>
+        </div>
+        <div class="flex flex-row grow gap-1">
+
+            <IcyNavbarTagHelper for-page="/" class="navbar-element flex">
+                <a id="linkToHome" class="m-auto w-full h-full flex <%: GetLocationCssClassName() %>" asp-controller="Home" asp-action="Index"><span class="m-auto">Home</span></a>
+            </IcyNavbarTagHelper>
+            
+            <IcyNavbarTagHelper for-page="/Home/Movies" class="navbar-element flex">
+                <a id="linkToMovies" class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Movies"><span class="m-auto">Movies</span></a>
+            </IcyNavbarTagHelper>
 
         </div>
 
         @* User login status *@
         <div class="flex flex-row grow">
             <div class="navbar-element flex">
-                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Edit database</span></a>
+                <a id="linkToEditDB" class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Edit database</span></a>
             </div>
 
             <div class="navbar-element flex">
@@ -41,7 +51,7 @@
     </nav>
 </header>
 <div class="w-full grow">
-    <main role="main" class="w-full h-full">
+    <main role="main" class="w-full h-full bg-white">
         @RenderBody()
     </main>
 </div>

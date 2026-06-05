@@ -120,7 +120,7 @@ namespace IcyMovies.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Genre,ReleaseDate,AgeRating,DurationInMinutes,PosterURL,Description")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Genre,ReleaseDate,AgeRating,DurationInMinutes,PosterURL,Description,ShortDescription")] Movie movie)
         {
             if (id != movie.Id)
             {

@@ -15,7 +15,7 @@
         <div class="w-full rounded-lg ring-2 ring-black/50 min-h-32">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="h-full p-8">
-                <div class="w-full h-max flex flex-col gap-4">
+                <div class="w-full h-max flex flex-col gap-4 p-4">
                     @* 160 / 230*@
                     <div class="mx-auto">
                         <div class="">
@@ -76,6 +76,14 @@
                                 </h4>
                                 <p class="col-sm-10">
                                     @Html.DisplayFor(model => model.DurationInMinutes)
+                                </p>
+                            </div>
+                            <div class="db-inputfield-container">
+                                <h4 class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.ShortDescription)
+                                </h4>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ShortDescription)
                                 </p>
                             </div>
                         </div>
