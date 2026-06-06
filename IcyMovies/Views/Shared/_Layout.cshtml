@@ -1,8 +1,11 @@
 ﻿
 <!DOCTYPE html>
 <html lang="en" class="h-min">
+
+
+
 <div>
-    
+
 </div>
 <head>
     <meta charset="utf-8"/>
@@ -13,7 +16,8 @@
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true">
     <link rel="stylesheet" href="~/IcyMovies.styles.css" asp-append-version="true"/>
 </head>
-<body class="flex flex-col">
+<body id="BodyTag" class="flex flex-col">
+<div class="dark"></div>
 <header>
     <nav class="h-16 flex flex-row border-black bg-white">
         <div class="pr-12 pl-4">
@@ -31,7 +35,7 @@
             <IcyNavbarTagHelper for-page="/" class="navbar-element flex">
                 <a id="linkToHome" class="m-auto w-full h-full flex <%: GetLocationCssClassName() %>" asp-controller="Home" asp-action="Index"><span class="m-auto">Home</span></a>
             </IcyNavbarTagHelper>
-            
+
             <IcyNavbarTagHelper for-page="/Home/Movies" class="navbar-element flex">
                 <a id="linkToMovies" class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Movies"><span class="m-auto">Movies</span></a>
             </IcyNavbarTagHelper>
@@ -46,6 +50,9 @@
 
             <div class="navbar-element flex">
                 <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">User</span></a>
+            </div>
+            <div class="navbar-element">
+                <input type="button" value="Tgl" onclick="ToggleDarkMode()" class="text-black"/>
             </div>
         </div>
     </nav>
@@ -63,5 +70,67 @@
 </footer>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
+
 </body>
+
+
+
+<script>
+    let mode = window.localStorage.getItem("ThemeMode");
+    if (mode.isEmpty())
+    {
+        mode = "Light";
+    }
+    let bodyTag = document.getElementById("BodyTag");
+    if (mode === "Dark")
+    {
+        if (!bodyTag.classList.contains("Dark"))
+        {
+            bodyTag.classList.add("dark");
+        }
+    } else
+    {
+        if (bodyTag.classList.contains("Dark"))
+        {
+            bodyTag.classList.remove("dark");
+        }
+    }
+    var links = document.getElementsByTagName("link");
+    for (var cl in links)
+    {
+        var link = links[cl];
+        if (link.rel === "stylesheet")
+            link.href += "";
+    }
+    
+    function ToggleDarkMode()
+    {
+        let bodyTag = document.getElementById("BodyTag");
+        let mode = window.localStorage.getItem("ThemeMode");
+        window.localStorage.setItem("ThemeMode", mode == null ? "Light" : mode === "Light" ? "Dark" : "Light");
+        mode = window.localStorage.getItem("ThemeMode");
+        if (mode === "Dark")
+        {
+            if (!bodyTag.classList.contains("dark"))
+            {
+                bodyTag.classList.add("dark");
+            }
+        } else
+        {
+            if (bodyTag.classList.contains("dark"))
+            {
+                bodyTag.classList.remove("dark");
+            }
+        }
+
+        var links = document.getElementsByTagName("link");
+        for (var cl in links)
+        {
+            var link = links[cl];
+            if (link.rel === "stylesheet")
+                link.href += "";
+        }
+    }
+</script>
+
 </html>
