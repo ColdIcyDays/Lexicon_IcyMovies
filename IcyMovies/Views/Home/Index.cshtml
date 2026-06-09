@@ -8,13 +8,13 @@
     <div class="p-8">
         @* HERO *@
         <div class="rounded-lg flex flex-row bg-clr-10-2 h-96 shadow-lg relative overflow-hidden">
-            <img src="@Model.HeroMovies[0].PosterURL" class="absolute w-full h-full pointer-events-none"/>
-            <div class="z-10 w-full h-full flex flex-row text-white">
                 <div class="min-w-16 flex">
                     <div class="rounded-[50%] m-auto w-min">
                         <span><</span>
                     </div>
                 </div>
+            <img src="@Model.GetHeroMovie(0)?.PosterURL" class="h-auto pointer-events-none"/>
+            <div class="w-full h-full flex flex-row text-white pl-8">
                 <div class="grow mt-auto pb-8">
                     <h2>Soker.</h2>
                     <h3>The movie of the century...</h3>
@@ -48,7 +48,7 @@
                 </div>
                 <input type="button" value="View All" class="p-4 ml-auto bg-clr-10-2 rounded-lg"/>
             </div>
-            <div class="flex flex-row gap-4">
+            <div class="flex flex-row gap-4 flex">
                 @Html.Partial("_HomeGenreHorizontalList", Model.GetMoviesByGenre("Sci-Fi"))
             </div>
         </div>

@@ -26,8 +26,12 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         HomePageVM vm = new HomePageVM();
-        vm.HeroMovies = await _context.Movies.OrderBy(en => new Guid()).Take(2).ToListAsync();
-        vm.AllMovies = await _context.Movies.ToListAsync();
+
+        if (_context.Movies.Any())
+        {
+            vm.HeroMovies = await _context.Movies.OrderBy(en => new Guid()).Take(2).ToListAsync();
+            vm.AllMovies = await _context.Movies.ToListAsync();
+        }
         
         return View(vm);
     }

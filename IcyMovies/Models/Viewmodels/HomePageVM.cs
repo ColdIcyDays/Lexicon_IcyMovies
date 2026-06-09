@@ -2,8 +2,8 @@
 
 public class HomePageVM
 {
-    public List<Movie> HeroMovies { get; set; }
-    public List<Movie> AllMovies { get; set; }
+    public List<Movie> HeroMovies { private get; set; } = new List<Movie>();
+    public List<Movie> AllMovies { private get; set; } = new List<Movie>();
 
     public List<Movie> GetMoviesByGenre(string aGenre)
     {
@@ -17,5 +17,10 @@ public class HomePageVM
         }
 
         return result;
+    }
+
+    public Movie? GetHeroMovie(int aIndex)
+    {
+        return HeroMovies.Count > aIndex ? HeroMovies[aIndex] : null;
     }
 }
