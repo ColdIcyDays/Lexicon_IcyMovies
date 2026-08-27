@@ -1,9 +1,96 @@
-﻿@{
+﻿@model IcyMovies.Models.Viewmodels.HomePageVM
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
+<div class="h-full flex flex-col">
+    <div class="p-8">
+        @* HERO *@
+        <div class="rounded-lg flex flex-row bg-clr-10-2 h-96 shadow-lg relative overflow-hidden">
+                <div class="min-w-16 flex">
+                    <div class="rounded-[50%] m-auto w-min">
+                        <span><</span>
+                    </div>
+                </div>
+            <img src="@Model.GetHeroMovie(0)?.PosterURL" class="h-auto pointer-events-none"/>
+            <div class="w-full h-full flex flex-row text-white pl-8">
+                <div class="grow mt-auto pb-8">
+                    <h2>Soker.</h2>
+                    <h3>The movie of the century...</h3>
+                    <div class="flex flex-row gap-4 mt-4">
+                        <input type="button" value="Watch now" class="cursor-pointer bg-clr-10-1 p-2 rounded-md"/>
+                        <input type="button" value="More info" class="cursor-pointer bg-clr-10-1 p-2 rounded-md"/>
+                    </div>
+                </div>
+                <div class="min-w-16 flex">
+                    <div class="rounded-[50%] m-auto w-min">
+                        <span>></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div>
+        @* CATEGORY FILTERS *@
+        <div class="mx-auto rounded-lg bg-clr-30-1 flex flex-row w-max ring-2 ring-black/50 ">
+            <input type="button" onclick="OnGenreClicked('Sci-Fi')" value="Sci-Fi" class="h-full cursor-pointer p-4 border-r-2 border-black/25" />
+            <input type="button" onclick="OnGenreClicked('Horror')" value="Horror" class="h-full cursor-pointer p-4" />
+        </div>
+    </div>
+    <div class="flex flex-col p-8 grow">
+        @* Sci-Fi Tab *@
+        <div id="SciFiTab" class="block">
+            <div class="flex flex-row">
+                <div>
+                    <h1>Sci-Fi Movies</h1>
+                    <p>Discover our selection of Sci-Fi movies.</p>
+                </div>
+                <input type="button" value="View All" class="p-4 ml-auto bg-clr-10-2 rounded-lg"/>
+            </div>
+            <div class="flex flex-row gap-4 flex">
+                @Html.Partial("_HomeGenreHorizontalList", Model.GetMoviesByGenre("Sci-Fi"))
+            </div>
+        </div>
+        
+        @* Horror Tab *@
+
+        <div id="HorrorTab" class="hidden">
+            <div class="flex flex-row">
+                <div>
+                    <h1>Horror Movies</h1>
+                    <p>Discover our selection of Horror movies.</p>
+                </div>
+                <input type="button" value="View All" class="p-4 ml-auto bg-clr-10-2 rounded-lg"/>
+            </div>
+            <div class="flex flex-row gap-4">
+                @Html.Partial("_HomeGenreHorizontalList", Model.GetMoviesByGenre("Horror"))
+            </div>
+        </div>
+
+        @* POPULAR MOVIES *@
+    </div>
+</div>
+
+<script>
+    function OnGenreClicked(Genre){
+        let HorrorTab = document.getElementById("HorrorTab");
+        let SciFiTab = document.getElementById("SciFiTab");
+        
+        if (Genre === "Horror"){
+            HorrorTab.classList.remove("hidden");
+            HorrorTab.classList.add("block");
+
+            SciFiTab.classList.add("hidden");
+            SciFiTab.classList.remove("block");
+        }
+
+        if (Genre === "Sci-Fi"){
+            HorrorTab.classList.add("hidden");
+            HorrorTab.classList.remove("block");
+
+            SciFiTab.classList.remove("hidden");
+            SciFiTab.classList.add("block");
+        }
+    }
+</script>

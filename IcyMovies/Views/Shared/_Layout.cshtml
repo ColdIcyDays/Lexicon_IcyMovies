@@ -1,5 +1,12 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿
+<!DOCTYPE html>
+<html lang="en" class="h-min">
+
+
+
+<div>
+
+</div>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,46 +16,121 @@
     <link rel="stylesheet" href="~/css/output.css" asp-append-version="true">
     <link rel="stylesheet" href="~/IcyMovies.styles.css" asp-append-version="true"/>
 </head>
-<body>
+<body id="BodyTag" class="flex flex-col">
+<div class="dark"></div>
 <header>
-    <nav class="mb-3 h-16 flex flex-row border-b-1">
-        <div class="flex flex-row grow border-r-2">
-            <div class="navbar-element flex">
-                <a class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Index"><span class="m-auto">Home</span></a>
+    <nav class="h-16 flex flex-row border-black bg-white">
+        <div class="pr-12 pl-4">
+            <div for-page="/" class="navbar-element flex text-4xl">
+                <a class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Index">
+                    <div class="w-max h-max m-auto flex flex-row ">
+                        <h2>Icy</h2>
+                        <h2 class="text-clr-10-1 pl-2">Movies</h2>
+                    </div>
+                </a>
             </div>
-            <div class="navbar-element flex">
-                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Something</span></a>
-            </div>
-            <div class="navbar-element flex">
-                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Huh?</span></a>
-            </div>
-            
+        </div>
+        <div class="flex flex-row grow gap-1">
+
+            <IcyNavbarTagHelper for-page="/" class="navbar-element flex">
+                <a id="linkToHome" class="m-auto w-full h-full flex <%: GetLocationCssClassName() %>" asp-controller="Home" asp-action="Index"><span class="m-auto">Home</span></a>
+            </IcyNavbarTagHelper>
+
+            <IcyNavbarTagHelper for-page="/Home/Movies" class="navbar-element flex">
+                <a id="linkToMovies" class="m-auto w-full h-full flex" asp-controller="Home" asp-action="Movies"><span class="m-auto">Movies</span></a>
+            </IcyNavbarTagHelper>
+
         </div>
 
         @* User login status *@
         <div class="flex flex-row grow">
             <div class="navbar-element flex">
-                <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Edit database</span></a>
+                <a id="linkToEditDB" class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">Edit database</span></a>
             </div>
-            
+
             <div class="navbar-element flex">
                 <a class="m-auto w-full h-full flex" asp-controller="Movie" asp-action="Index"><span class="m-auto">User</span></a>
+            </div>
+            <div class="navbar-element">
+                <input type="button" value="Tgl" onclick="ToggleDarkMode()" class="text-black"/>
             </div>
         </div>
     </nav>
 </header>
-<div class="w-full">
-    <main role="main" class="pb-3 w-full">
+<div class="w-full grow">
+    <main role="main" class="w-full h-full bg-white">
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer class="border-t border-dotted footer text-muted mt-auto p-8">
     <div class="container">
         &copy; 2026 - IcyMovies - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
+
 </body>
+
+
+
+<script>
+    let mode = window.localStorage.getItem("ThemeMode");
+    if (mode.isEmpty())
+    {
+        mode = "Light";
+    }
+    let bodyTag = document.getElementById("BodyTag");
+    if (mode === "Dark")
+    {
+        if (!bodyTag.classList.contains("Dark"))
+        {
+            bodyTag.classList.add("dark");
+        }
+    } else
+    {
+        if (bodyTag.classList.contains("Dark"))
+        {
+            bodyTag.classList.remove("dark");
+        }
+    }
+    var links = document.getElementsByTagName("link");
+    for (var cl in links)
+    {
+        var link = links[cl];
+        if (link.rel === "stylesheet")
+            link.href += "";
+    }
+    
+    function ToggleDarkMode()
+    {
+        let bodyTag = document.getElementById("BodyTag");
+        let mode = window.localStorage.getItem("ThemeMode");
+        window.localStorage.setItem("ThemeMode", mode == null ? "Light" : mode === "Light" ? "Dark" : "Light");
+        mode = window.localStorage.getItem("ThemeMode");
+        if (mode === "Dark")
+        {
+            if (!bodyTag.classList.contains("dark"))
+            {
+                bodyTag.classList.add("dark");
+            }
+        } else
+        {
+            if (bodyTag.classList.contains("dark"))
+            {
+                bodyTag.classList.remove("dark");
+            }
+        }
+
+        var links = document.getElementsByTagName("link");
+        for (var cl in links)
+        {
+            var link = links[cl];
+            if (link.rel === "stylesheet")
+                link.href += "";
+        }
+    }
+</script>
+
 </html>

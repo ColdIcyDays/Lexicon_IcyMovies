@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IcyMovies.Data;
 using IcyMovies.Models;
+using IcyMovies.Models.Viewmodels;
 
 namespace IcyMovies.Controllers
 {
@@ -18,8 +19,41 @@ namespace IcyMovies.Controllers
         {
             _context = context;
         }
+        // GET: Movie with Pagination.
+        public async Task<IActionResult> Index(int aMaxItemCount = 3, int? pageNumber = 0, string? nameFilter = "")
+        {
+            int number = 0;
+            if (pageNumber != null)
+            {
+                number = (int)pageNumber;
+            }
+            
+            string filter = nameFilter ?? "";
+            IQueryable<Movie> filteredMovies = _context.Movies
+                .Where(movie => movie.Title.ToLower().Contains(filter.ToLower()))
+                .OrderBy(movie => movie.Id);
 
-        // GET: Movie
+            if (filteredMovies.Count() <= number * aMaxItemCount)
+            {
+                number--;
+            }
+
+            if (number < 0)
+            {
+                number++;
+            }
+
+            OffsetMovie result = new OffsetMovie();
+            result.FoundMovies = await filteredMovies.Skip(number * aMaxItemCount).Take(aMaxItemCount).ToListAsync();
+            result.Offset = number;
+            result.TotalMovieCount = filteredMovies.Count();
+            result.PaginationCount = ((int)Math.Ceiling(((double)result.TotalMovieCount) / 3.0));
+            result.NameFilter = filter;
+            return View(result);
+        }
+
+        
+        /*// GET: Movie
         public async Task<IActionResult> Index()
         {
             Movie mov1 = new Movie();
@@ -43,7 +77,7 @@ namespace IcyMovies.Controllers
             return View(new List<Movie> { mov1, mov2 }); 
             
             return View(await _context.Movies.ToListAsync());
-        }
+        }*/
 
         // GET: Movie/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -74,7 +108,7 @@ namespace IcyMovies.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Genre,ReleaseDate,AgeRating,DurationInMinutes,PosterURL,Description")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Id,Title,Genre,ReleaseDate,AgeRating,DurationInMinutes,PosterURL,Description,ShortDescription")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +140,7 @@ namespace IcyMovies.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Genre,ReleaseDate,AgeRating,DurationInMinutes,PosterURL,Description")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Genre,ReleaseDate,AgeRating,DurationInMinutes,PosterURL,Description,ShortDescription")] Movie movie)
         {
             if (id != movie.Id)
             {

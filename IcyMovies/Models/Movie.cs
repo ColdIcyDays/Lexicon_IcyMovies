@@ -10,4 +10,5 @@ public class Movie
     public int DurationInMinutes { get; set; }
     public string PosterURL { get; set; }
     public string Description { get; set; }
+    public string ShortDescription { get; set; }
 }

@@ -1,3 +1,5 @@
+@using System.Net.Mime
+@using System.Web
 @model IcyMovies.Models.Movie
 
 @{
@@ -5,57 +7,108 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
 
 <div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AgeRating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AgeRating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DurationInMinutes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DurationInMinutes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PosterURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PosterURL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
+    <h1 class="text-center mt-8 text-4xl">Details</h1>
+
+    <div class="px-64 py-8 w-full">
+        <div class="w-full rounded-lg ring-2 ring-black/50 min-h-32">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="h-full p-8">
+                <div class="w-full h-max flex flex-col gap-4 p-4">
+                    @* 160 / 230*@
+                    <div class="mx-auto">
+                        <div class="">
+                            <img id="detailsPosterImage" src="@Model.PosterURL" class="h-[230px] max-w-[160px] max-h-[230px]"/>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-2">
+
+                            <div class="db-inputfield-container">
+                                <h4 class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </h4>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Title)
+                                </p>
+                            </div>
+
+                            <div class="db-inputfield-container">
+                                <h4 class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </h4>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Description)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <div class="db-inputfield-container">
+                                <h4 class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Genre)
+                                </h4>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Genre)
+                                </p>
+                            </div>
+                            <div class="db-inputfield-container">
+                                <h4 class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                                </h4>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ReleaseDate)
+                                </p>
+                            </div>
+                            <div class="db-inputfield-container">
+                                <h4 class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.AgeRating)
+                                </h4>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.AgeRating)
+                                </p>
+                            </div>
+                            <div class="db-inputfield-container">
+                                <h4 class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.DurationInMinutes)
+                                </h4>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.DurationInMinutes)
+                                </p>
+                            </div>
+                            <div class="db-inputfield-container">
+                                <h4 class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.ShortDescription)
+                                </h4>
+                                <p class="col-sm-10">
+                                    @Html.DisplayFor(model => model.ShortDescription)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
-<div>
+
+<div class="mx-auto w-max">
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+    let posterIMG = document.getElementById("detailsPosterImage");
+    var url = "@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.PosterURL));"
+    var image = new Image();
+    image.src = url;
+    image.onload = function (){
+        posterIMG.src = url;
+    }
+    image.onerror = function (){
+        posterIMG.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/250px-Question_mark_%28black%29.svg.png"
+    }
+</script>
