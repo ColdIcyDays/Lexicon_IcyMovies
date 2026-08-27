@@ -22,6 +22,26 @@ namespace IcyMovies.Controllers
         // GET: Movie
         public async Task<IActionResult> Index()
         {
+            Movie mov1 = new Movie();
+            mov1.Title = "Cool movie 1";
+            mov1.AgeRating = 15;
+            mov1.Description = "Cool movie is about a cool movie.";
+            mov1.DurationInMinutes = 400;
+            mov1.Genre = "coolness;isafilm;wow";
+            mov1.PosterURL = "https://someurlhaha.com";
+            mov1.ReleaseDate = new DateOnly(2024, 4, 3);
+            
+            Movie mov2 = new Movie();
+            mov2.Title = "Sad movie 1";
+            mov2.AgeRating = 50;
+            mov2.Description = "Sad movie is about a cool movie.";
+            mov2.DurationInMinutes = 400;
+            mov2.Genre = "sad;verysad;argh";
+            mov2.PosterURL = "https://someotherurlhaha.com";
+            mov2.ReleaseDate = new DateOnly(2023, 2, 18);
+
+            return View(new List<Movie> { mov1, mov2 }); 
+            
             return View(await _context.Movies.ToListAsync());
         }
 
